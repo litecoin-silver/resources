@@ -1,4 +1,4 @@
-# Build Ltcsilver
+# Build Litecoin Silver
 A more technical documentation is available for :
 * linux https://github.com/litecoinsilver/litecoin/blob/master/doc/build-unix.md
 * osx https://github.com/litecoinsilver/litecoin/blob/master/doc/build-osx.md
@@ -16,6 +16,11 @@ This will build litecoin-qt as well if the dependencies are met.
 ```bash
     sudo apt-get install build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils
 ```
+#### Lib Sodium
+Add libsodium as extra dependencies
+```bash
+    sudo apt-get install libsodium libsodium-dev
+```
 #### Lib BOOST
 On at least Ubuntu 14.04+ and Debian 7+ there are generic names for the
 individual boost development packages, so the following can be used to only
@@ -23,7 +28,6 @@ install necessary parts of boost:
 ```bash
     sudo apt-get install libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev
 ```
-
 #### Lib QT
 To build with Qt 5 (recommended) you need the following:
 ```bash
