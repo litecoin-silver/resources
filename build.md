@@ -1,41 +1,65 @@
-# Build Litecoin Silver
+Build Litecoin Silver
+===
 A more technical documentation is available for :
 * linux https://github.com/litecoinsilver/litecoin/blob/master/doc/build-unix.md
 * osx https://github.com/litecoinsilver/litecoin/blob/master/doc/build-osx.md
 * windows https://github.com/litecoinsilver/litecoin/blob/master/doc/build-windows.md
 
-## Build Linux
+### Get Ltcsilver
+```bash
+git clone https://github.com/litecoinsilver/ltcsilver.git
+cd ./ltcsilver
+```
+
+### Build Linux
 ```bash
 ./autogen.sh
 ./configure
 make
 make install # optional
 ```
-#### Build requirements
+
+### Build requirements
 This will build litecoin-qt as well if the dependencies are met.
 ```bash
-    sudo apt-get install build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils
+sudo apt-get install build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils
 ```
-#### Lib Sodium
-Add libsodium as extra dependencies
+### Lib Sodium
+* install from Ubuntu repository. Note Ubuntu 16.04 has an unsupported libsodium version, install manually.
 ```bash
-    sudo apt-get install libsodium libsodium-dev
+sudo apt-get install libsodium18 libsodium-dev
 ```
-#### Lib BOOST
+* install from sources. Download a [tarball](https://download.libsodium.org/libsodium/releases/) of libsodium, preferably the latest stable version, then follow the ritual:
+```bash
+./configure
+make && make check
+sudo make install
+```
+
+### Lib BOOST
 On at least Ubuntu 14.04+ and Debian 7+ there are generic names for the
 individual boost development packages, so the following can be used to only
 install necessary parts of boost:
 ```bash
     sudo apt-get install libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev
 ```
-#### Lib QT
+
+### Lib QT
 To build with Qt 5 (recommended) you need the following:
 ```bash
-    sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler
+sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler
 ```
-#### Berkeley DB
-It is recommended to use Berkeley DB 4.8. If you have to build it yourself:
 
+### Berkeley DB
+It is recommended to use Berkeley DB 4.8.
+```bash
+* install from Ubuntu repository. 
+sudo apt-get install software-properties-common
+sudo add-apt-repository ppa:bitcoin/bitcoin
+sudo apt-get update
+sudo apt-get install libdb4.8-dev libdb4.8++-dev
+```
+* install from sources.
 ```bash
 LITECOIN_ROOT=$(pwd)
 
@@ -62,3 +86,22 @@ cd $LITECOIN_ROOT
 ```
 **Note**: You only need Berkeley DB if the wallet is enabled (see the section *Disable-Wallet mode* below).
 
+### Summary
+List of commands to install Ltcsilver on an empty vm (tested on Ubuntu artful).
+```bash
+sudo apt-get update
+sudo apt-get install git
+sudo apt-get install build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils
+sudo apt-get install libsodium18 libsodium-dev
+sudo apt-get install libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev
+sudo apt-get install software-properties-common
+sudo add-apt-repository ppa:bitcoin/bitcoin
+sudo apt-get update
+sudo apt-get install libdb4.8-dev libdb4.8++-dev
+git clone https://github.com/litecoinsilver/ltcsilver
+cd ltcsilver
+./autogen.sh
+./configure --enable-debug --without-gui
+make
+sudo make install
+```
