@@ -52,8 +52,8 @@ sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-d
 
 ### Berkeley DB
 It is recommended to use Berkeley DB 4.8.
-```bash
 * install from Ubuntu repository. 
+```bash
 sudo apt-get install software-properties-common
 sudo add-apt-repository ppa:bitcoin/bitcoin
 sudo apt-get update
